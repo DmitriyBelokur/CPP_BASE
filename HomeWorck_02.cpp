@@ -21,11 +21,11 @@ long getNumberOfDigits(long NumValue){
 
 long getSumOfDigitsNum(long NumValue){
     
-    constexpr auto DIVIDER_CONST_TEN{10};
+    constexpr auto CONST_DIVIDER_TEN{10};
     long SumNumValue{};
 
-    for(auto ModifyValue{NumValue}; ModifyValue >= 1; (ModifyValue/=DIVIDER_CONST_TEN)){
-        SumNumValue += ModifyValue%DIVIDER_CONST_TEN;
+    for(auto ModifyValue{NumValue}; ModifyValue >= 1; (ModifyValue/=CONST_DIVIDER_TEN)){
+        SumNumValue += ModifyValue%CONST_DIVIDER_TEN;
     }
 
     return SumNumValue;
@@ -60,11 +60,11 @@ int calcSumArithmeticMean(){
 
 int calcLuckyTicket(){
     
-    constexpr auto DIVIDER_CONST_TEN{10};
-    constexpr auto DIGIT_CAPACITY_CONST_SIX{6};
-    const auto CONST_THREE{static_cast<int>(pow(DIVIDER_CONST_TEN,(DIGIT_CAPACITY_CONST_SIX/2)))};
+    constexpr auto CONST_DIVIDER_TEN{10};
+    constexpr auto CONST_DIGIT_CAPACITY_SIX{6};
+    const auto CONST_THREE{static_cast<int>(pow(CONST_DIVIDER_TEN,(CONST_DIGIT_CAPACITY_SIX/2)))};
    
-    long InputValue{}, SizeValue{};
+    long InputValue{};
     
     std::cout << "'Lucky ticket'\n\n";
 
@@ -74,9 +74,9 @@ int calcLuckyTicket(){
         std::cin >> InputValue;
         std::cout << ".\n";
 
-        SizeValue = getNumberOfDigits(InputValue);
+        auto SizeValue{getNumberOfDigits(InputValue)};
         
-        if(SizeValue == DIGIT_CAPACITY_CONST_SIX){
+        if(SizeValue == CONST_DIGIT_CAPACITY_SIX){
             break;
         }
 
@@ -102,7 +102,7 @@ int calcLuckyTicket(){
 
 int calcReverseNumber(){
     
-    constexpr auto DIVIDER_CONST_TEN{10};
+    constexpr auto CONST_DIVIDER_TEN{10};
 
     long InputValue{}, ReversValue{};
     
@@ -112,8 +112,8 @@ int calcReverseNumber(){
     
     for(auto ModifeValue{InputValue*getSignAttribute(InputValue)}; 
             ModifeValue >= 1;
-            ModifeValue/=DIVIDER_CONST_TEN, (ModifeValue ? ReversValue*=DIVIDER_CONST_TEN : ReversValue)){
-        ReversValue += ModifeValue % DIVIDER_CONST_TEN;
+            ModifeValue/=CONST_DIVIDER_TEN, (ModifeValue ? ReversValue*=CONST_DIVIDER_TEN : ReversValue)){
+        ReversValue += ModifeValue % CONST_DIVIDER_TEN;
     }
 
     ReversValue *= getSignAttribute(InputValue);
@@ -124,12 +124,27 @@ int calcReverseNumber(){
 
 }
 
+int calcSumOddElements(){
+
+    constexpr auto CONST_MAX_ELEM{50};
+    constexpr auto CONST_MAX_LIM{90};
+    constexpr auto CONST_MIN_LIM{-60};
+
+    
+
+
+
+    
+}
+
 int main(){
 
     std::cout << "Select the required action from the list\n"
         << "\t1 - Sum and arithmetic mean of digits.\n"
         << "\t2 - Lucky ticket.\n"
-        << "\t3 - Reverse number.\n";
+        << "\t3 - Reverse number.\n"
+        << "\t4 - Sum of odd elements.\n"
+        ;
             
     long IdAct{};
     std::cin >> IdAct;
@@ -142,6 +157,9 @@ int main(){
         calcLuckyTicket();
         break;
     case 3:
+        calcReverseNumber();
+        break;
+    case :
         calcReverseNumber();
         break;
     default:

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include <cmath>
 
 bool getContinueTheProgram() {
@@ -36,7 +37,6 @@ long getSignAttribute(long NumValue){
     if (NumValue < 0){
         return -1;
     }
-
     return 1;
 }
 
@@ -130,11 +130,20 @@ int calcSumOddElements(){
     constexpr auto CONST_MAX_LIM{90};
     constexpr auto CONST_MIN_LIM{-60};
 
-    
+    int ArrElement[CONST_MAX_ELEM];
 
+    std::cout << "Please, enter '" << CONST_MAX_ELEM << "' digits "
+            << " in the range [" << CONST_MIN_LIM << ":" << CONST_MAX_LIM << "]\n";
+        
+    for(int i{0}; i < CONST_MAX_ELEM; ++i){
+        std::cin >> ArrElement[i];        
+    }
 
+    for(int i{0}; i < CONST_MAX_ELEM; ++i){
+        std::cout << ArrElement[i] << "\n";
+    }
 
-    
+    return 0;
 }
 
 int main(){
@@ -159,8 +168,8 @@ int main(){
     case 3:
         calcReverseNumber();
         break;
-    case :
-        calcReverseNumber();
+    case 4:
+        calcSumOddElements();
         break;
     default:
         std::cout << "You chose the wrong action\n";

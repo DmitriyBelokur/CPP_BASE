@@ -1,5 +1,4 @@
 #include <iostream>
-#include <random>
 #include <cmath>
 
 bool getContinueTheProgram() {

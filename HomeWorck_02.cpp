@@ -1,6 +1,14 @@
 #include <iostream>
 #include <cmath>
 
+enum IdAct{
+    ACT_1_SUM_AND_ARITH_MEAN = 1,
+    ACT_2_LUCKY_TICKET,
+    ACT_3_REVERSE_NUMBERS,
+    ACT_4_SUM_OF_ODD_ELEMENTS,
+    ACT_5_BEST_DIVIDER    
+};
+
 bool getContinueTheProgram() {
 	std::string Answer;
 	std::cin >> Answer;
@@ -179,10 +187,13 @@ int calcBestDivider(){
         return 1;         
     }    
 
-    auto MaxDivider{InputValue - 1};
-    for(;; MaxDivider -= 1){
-        if(!(InputValue % MaxDivider)){
-            break;
+    auto MaxDivider{0};
+    
+    for(int ModifyDivider{CONST_MIN_LIM_ONE}; ModifyDivider <= InputValue; ++ModifyDivider){
+        if(!(InputValue%ModifyDivider)){
+            if(getSumOfDigitsNum(ModifyDivider)>=getSumOfDigitsNum(MaxDivider)){
+                MaxDivider = ModifyDivider;
+            }
         }
     }
 
@@ -191,35 +202,23 @@ int calcBestDivider(){
 }
 
 int main(){
-
     std::cout << "Select the required action from the list\n"
         << "\t1 - Sum and arithmetic mean of digits.\n"
         << "\t2 - Lucky ticket.\n"
         << "\t3 - Reverse number.\n"
         << "\t4 - Sum of odd elements.\n"
         << "\t5 - Best divider.\n"
-        << "\n"
-        ;
+        << "\n";
             
     long IdAct{0};
     std::cin >> IdAct;
 
     switch (IdAct){
-    case 1:
-        calcSumArithmeticMean();
-        break;
-    case 2:
-        calcLuckyTicket();
-        break;
-    case 3:
-        calcReverseNumber();
-        break;
-    case 4:
-        calcSumOddElements();
-        break;
-    case 5:
-        calcBestDivider();
-        break;
+    case ACT_1_SUM_AND_ARITH_MEAN: calcSumArithmeticMean(); break;
+    case ACT_2_LUCKY_TICKET: calcLuckyTicket(); break;
+    case ACT_3_REVERSE_NUMBERS: calcReverseNumber(); break;
+    case ACT_4_SUM_OF_ODD_ELEMENTS: calcSumOddElements(); break;
+    case ACT_5_BEST_DIVIDER: calcBestDivider(); break;
     default:
         std::cout << "You chose the wrong action\n";
         break;

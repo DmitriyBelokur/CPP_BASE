@@ -10,17 +10,67 @@ enum IdAct{
     ACT_6_SEARCH_NUMBER_IN_STR
 };
 
-int calcReversStr(){
+struct MenuAction {    
+    char title[200];
+    void (*handler)();
+};
+
+void actStringReverse() {
+    constexpr int STR_MAX_LEN {10};
+    char inStr[STR_MAX_LEN]; 
+
+    printf("Enter your string [MAX_LEN: %d]: ", STR_MAX_LEN-2); // 2 chars are: user \n from console and \0
+    fflush(stdin);
+    fgets(inStr, STR_MAX_LEN, stdin);
     
-    char str[100]{};
+    auto inStrLen = std::strlen(inStr);    
+    inStr[inStrLen-1] = '\0'; // removing user console \n from tail of the string
+    inStrLen--; // recalulating string lenght
+    printf("You entered: '%s'\n", inStr);
+    
+    char swpBuff {};
 
-    std::cin >> str;
-
-    for(int i{0}; i < 100; ++i){
-        std::cout << str[i];
+    for (size_t leftIdx=0, rightIdx=inStrLen-1; leftIdx < rightIdx; leftIdx++, rightIdx--) {
+        swpBuff = inStr[leftIdx];
+        inStr[leftIdx] = inStr[rightIdx];
+        inStr[rightIdx] = swpBuff;
     }
 
-    return 0;    
+    printf("Reverse string are: '%s'\n", inStr);
+}
+
+void anotherAction() {
+    std::cout << "Doing some other action\n";
+}
+
+int calcReversStr(){
+    MenuAction actionsMenu[] = {
+        {"Reverse string", actStringReverse},
+        {"Action 2", anotherAction}
+    };        
+    
+    const auto ACTIONS_COUNT {std::size(actionsMenu)};
+
+    std::cout << "Choose action:\n";
+    for (int i=0; i< ACTIONS_COUNT; i++) {
+        std::cout << '[' << i+1 << "] " << actionsMenu[i].title << '\n';        
+    }    
+
+    int choose {0};    
+    while (true) {
+        std::cout << "> ";
+        std::cin >> choose;
+
+        if (choose > 0 && choose <= ACTIONS_COUNT) {
+            std::cout << "Performing action: " << actionsMenu[choose-1].title << '\n';            
+            actionsMenu[choose-1].handler();
+            break;
+        } else {        
+            std::cout << "ERR!!! Wrong action id. Let's try again\n";            
+        }        
+    }        
+
+    return 0;   
 }
 
 int main(){
